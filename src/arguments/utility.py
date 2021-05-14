@@ -143,13 +143,10 @@ class Playbook():
             SearchError("You have no entries in the playbook",
                         "Browse and save entries in playbook with 'p' key")
             sys.exit()
-        # Creates QuestionPanelStackoverflow object
-        # populates its question_data and answer_data and displays it
+        # Creates QuestionPanelStackoverflow object, populates its question_data and answer_data and displays it
         question_panel = QuestionsPanelStackoverflow()
         for item in playbook_data['items_stackoverflow']:
-            question_panel.questions_data.append( [item['question_title'],
-                                                   item['question_id'],
-                                                   item['question_link']] )
+            question_panel.questions_data.append( [item['question_title'], item['question_id'], item['question_link']] )
             question_panel.answer_data[item['question_id']] = item['answer_body']
         question_panel.display_panel([], playbook=True)
 
@@ -170,9 +167,8 @@ class QuestionsPanelStackoverflow():
     def populate_question_data(self, questions_list):
         """
         Function to populate question data property
-        Creates batch request to stackexchange API and to get question
-        details of questions with id in the list. Stores the returned
-        data in the following format:
+        Creates batch request to stackexchange API and to get question details of
+        questions with id in the list. Stores the returned data data in the following format:
             list(  list( question_title, question_link, question_id )  )
         """
         with console.status("Getting the questions..."):
@@ -184,9 +180,7 @@ class QuestionsPanelStackoverflow():
                 SearchError("Search Failed", "Try connecting to the internet")
                 sys.exit()
         json_ques_data = resp.json()
-        self.questions_data = [[item['title'].replace('|',''),
-                                item['question_id'], item['link']]
-                                for item in json_ques_data["items"]]
+        self.questions_data = [[item['title'].replace('|',''), item['question_id'], item['link']] for item in json_ques_data["items"]]
 
     def populate_answer_data(self, questions_list):
         """
@@ -242,14 +236,7 @@ class QuestionsPanelStackoverflow():
 
     def navigate_questions_panel(self, playbook=False):
         # Code for navigating through the question panel
-        if playbook:
-            message = 'Playbook Questions'
-            instructions = ". Press 'd' to delete from playbook"
-            keys = ('enter', 'd')
-        else:
-            message = 'Relevant Questions'
-            instructions = ". Press 'p' to save in playbook"
-            keys = ('enter', 'p')
+        (message, instructions, keys) = ('Playbook Questions', ". Press 'd' to delete from playbook", ('enter', 'd')) if(playbook) else ('Relevant Questions', ". Press 'p' to save in playbook", ('p', 'enter'))
         console.rule('[bold blue] {}'.format(message), style="bold red")
         console.print("[yellow] Use arrow keys to navigate." +
                        "'q' or 'Esc' to quit. 'Enter' to open in a browser" +

@@ -94,5 +94,3 @@ class Search():
                 print(
                     colored(f"\U0001F604 Answers successfully saved into {filename}",
                             "green"))
-                    colored("\U0001F604 Answers successfully saved into" +\
-                            filename, "green"))
