@@ -28,9 +28,23 @@ $ sudo python3 -m pip3 install -e .
 
 ## Usage🛠
 
-Dynamic CLI allows users to search for keywords/issues with some relevant tags.
+### Searching 🔎
+Dynamic CLI allows users to search for keywords/issues with some relevant tags. It provides fluid viewing of results and dynamic user experience.
 
-![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/49693160/111326116-4bcceb00-8692-11eb-9d3a-51350a006d34.gif)
+![search](https://user-images.githubusercontent.com/26577306/119429419-6378bd80-bd2c-11eb-9000-091e7998c238.gif)
+
+### Saving Offline 🖊
+Dynamic CLI can save your search results offline in a playbook for you to view later. Just press the `p` key while browsing and it will be saved.
+
+![savePlaybook](https://user-images.githubusercontent.com/26577306/119429682-e863d700-bd2c-11eb-89c4-6a1733d9b0da.gif)
+
+### View saved results 📖
+You can refer to your saved searches later with ease.
+
+![getPlaybook](https://user-images.githubusercontent.com/26577306/119429859-58725d00-bd2d-11eb-970d-03614b10e5e4.gif)
+
+### Notion.so incorporation
+(Upcoming feature) Login to your Notion account to sync your bookmarked questions
 
 ## Arguments⚙
 
@@ -43,6 +57,7 @@ Options: <br>
 `-st, --start -> Introduces Dynamic CLI` <br>
 `-v, --version -> Gives the Version of the CLI` <br>
 `-s, --search -> Search a question on Stackoverflow` <br>
+`-p, --search -> View bookmarked questions in playbook` <br>
 `-d, --debug -> Turn on Debugging mode` <br>
 `-c, --custom -> Setup a custom API key` <br>
 `-h, --help -> Shows this message and exit` <br>
