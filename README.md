@@ -29,19 +29,19 @@ $ sudo python3 -m pip3 install -e .
 ## Usage🛠
 
 ### Searching 🔎
-Dynamic CLI allows users to search for keywords/issues with some relevant tags. It provides fluid viewing of results and dynamic user experience.
+Dynamic CLI allows users to search for keywords/issues with some relevant tags. It provides fluid viewing of results and dynamic user experience. Press `Enter` key to open the question in a browser.
 
-![search](https://user-images.githubusercontent.com/26577306/119429419-6378bd80-bd2c-11eb-9000-091e7998c238.gif)
+![search](https://user-images.githubusercontent.com/26577306/119455378-2b3aa480-bd57-11eb-924b-d73bb5018ff4.gif)
 
 ### Saving Offline 🖊
 Dynamic CLI can save your search results offline in a playbook for you to view later. Just press the `p` key while browsing and it will be saved.
 
-![savePlaybook](https://user-images.githubusercontent.com/26577306/119429682-e863d700-bd2c-11eb-89c4-6a1733d9b0da.gif)
+![save](https://user-images.githubusercontent.com/26577306/119455428-3988c080-bd57-11eb-8a50-86d4e14ae7f6.gif)
 
 ### View saved results 📖
 You can refer to your saved searches later with ease.
 
-![getPlaybook](https://user-images.githubusercontent.com/26577306/119429859-58725d00-bd2d-11eb-970d-03614b10e5e4.gif)
+![read](https://user-images.githubusercontent.com/26577306/119455466-41486500-bd57-11eb-9830-569c37fdaa09.gif)
 
 ### Notion.so incorporation
 (Upcoming feature) Login to your Notion account to sync your bookmarked questions
