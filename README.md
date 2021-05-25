@@ -57,7 +57,7 @@ Options: <br>
 `-st, --start -> Introduces Dynamic CLI` <br>
 `-v, --version -> Gives the Version of the CLI` <br>
 `-s, --search -> Search a question on Stackoverflow` <br>
-`-p, --search -> View bookmarked questions in playbook` <br>
+`-p, --playbook -> View bookmarked questions in playbook` <br>
 `-d, --debug -> Turn on Debugging mode` <br>
 `-c, --custom -> Setup a custom API key` <br>
 `-h, --help -> Shows this message and exit` <br>
