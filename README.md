@@ -23,7 +23,7 @@ $ pip3 install -r requirements.txt
 **4.** Install with pip
 
 ```shell
-$ pip3 install -e .
+$ sudo python3 -m pip3 install -e .
 ```
 
 ## Usage🛠
