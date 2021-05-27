@@ -58,6 +58,7 @@ Options: <br>
 `-v, --version -> Gives the Version of the CLI` <br>
 `-s, --search -> Search a question on Stackoverflow` <br>
 `-p, --playbook -> View bookmarked questions in playbook` <br>
+`-no, --notion -> Open browser to login to Notion.so` <br>
 `-d, --debug -> Turn on Debugging mode` <br>
 `-c, --custom -> Setup a custom API key` <br>
 `-h, --help -> Shows this message and exit` <br>
@@ -74,7 +75,7 @@ The project is licensed under the GNU General Public License v3. Check out [`LIC
 
 **1.** Fork [this](https://github.com/IndianOpenSourceFoundation/dynamic-cli/fork) repository.
 
-**2.** Clone the forked repository. 
+**2.** Clone the forked repository.
 ```bash
 git clone https://github.com/<your-github-username>/project_name.git
 ```

@@ -15,6 +15,7 @@ import webbrowser
 from .error import SearchError
 from .save import SaveSearchResults
 from .markdown import MarkdownRenderer
+from .settings import PLAYBOOK_FILE
 
 # Required for OAuth
 import json
@@ -34,25 +35,32 @@ from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 console = Console()
 
+def get_browser_driver():
+    # Try to install web drivers for one of these browsers
+    # Chrome, Firefox, Edge (One of them must be installed)
+    try:
+        return webdriver.Chrome(ChromeDriverManager().install())
+    except ValueError:
+        try:
+            return webdriver.Firefox(executable_path=
+                                        GeckoDriverManager().install())
+        except ValueError:
+            try:
+                return webdriver.Edge(EdgeChromiumDriverManager().\
+                                        install())
+            except ValueError:
+                print("You do not have one of these supported browsers:" +
+                        "Chrome, Firefox, Edge")
+
 class Playbook():
     def __init__(self):
-        self.linux_path = "/home/{}/Documents/dynamic".\
-                          format(os.getenv('USER'))
-        self.mac_path = "/Users/{}/Documents/dynamic".\
-                        format(os.getenv('USER'))
-        self.file_name = 'dynamic_playbook.json'
         self.key = 'DYNAMIC'
 
     @property
     def playbook_path(self):
         """Create an environment variable 'DYNAMIC containing the path of dynamic_playbook.json and returns i."""
         if not os.getenv(self.key):
-            if(sys.platform=='linux'):
-                os.environ[self.key] = os.path.\
-                                       join(self.linux_path, self.file_name)
-            elif(sys.platform=='darwin'):
-                os.environ[self.key] = os.path.\
-                                       join(self.mac_path, self.file_name)
+            os.environ[self.key] = PLAYBOOK_FILE
         return os.getenv(self.key)
 
     @property
@@ -143,10 +151,13 @@ class Playbook():
             SearchError("You have no entries in the playbook",
                         "Browse and save entries in playbook with 'p' key")
             sys.exit()
-        # Creates QuestionPanelStackoverflow object, populates its question_data and answer_data and displays it
+        # Creates QuestionPanelStackoverflow object
+        # populates its question_data and answer_data and displays it
         question_panel = QuestionsPanelStackoverflow()
         for item in playbook_data['items_stackoverflow']:
-            question_panel.questions_data.append( [item['question_title'], item['question_id'], item['question_link']] )
+            question_panel.questions_data.append( [item['question_title'],
+                                                   item['question_id'],
+                                                   item['question_link']] )
             question_panel.answer_data[item['question_id']] = item['answer_body']
         question_panel.display_panel([], playbook=True)
 
@@ -167,8 +178,9 @@ class QuestionsPanelStackoverflow():
     def populate_question_data(self, questions_list):
         """
         Function to populate question data property
-        Creates batch request to stackexchange API and to get question details of
-        questions with id in the list. Stores the returned data data in the following format:
+        Creates batch request to stackexchange API and to get question
+        details of questions with id in the list. Stores the returned
+        data in the following format:
             list(  list( question_title, question_link, question_id )  )
         """
         with console.status("Getting the questions..."):
@@ -180,7 +192,9 @@ class QuestionsPanelStackoverflow():
                 SearchError("Search Failed", "Try connecting to the internet")
                 sys.exit()
         json_ques_data = resp.json()
-        self.questions_data = [[item['title'].replace('|',''), item['question_id'], item['link']] for item in json_ques_data["items"]]
+        self.questions_data = [[item['title'].replace('|',''),
+                                item['question_id'], item['link']]
+                                for item in json_ques_data["items"]]
 
     def populate_answer_data(self, questions_list):
         """
@@ -236,7 +250,14 @@ class QuestionsPanelStackoverflow():
 
     def navigate_questions_panel(self, playbook=False):
         # Code for navigating through the question panel
-        (message, instructions, keys) = ('Playbook Questions', ". Press 'd' to delete from playbook", ('enter', 'd')) if(playbook) else ('Relevant Questions', ". Press 'p' to save in playbook", ('p', 'enter'))
+        if playbook:
+            message = 'Playbook Questions'
+            instructions = ". Press 'd' to delete from playbook"
+            keys = ('enter', 'd')
+        else:
+            message = 'Relevant Questions'
+            instructions = ". Press 'p' to save in playbook"
+            keys = ('enter', 'p')
         console.rule('[bold blue] {}'.format(message), style="bold red")
         console.print("[yellow] Use arrow keys to navigate." +
                        "'q' or 'Esc' to quit. 'Enter' to open in a browser" +
@@ -367,21 +388,7 @@ class Utility():
                                   scope=scopes, redirect_uri=redirect_uri)
         auth_url, state = stackApps.authorization_url(authorization_url)
 
-        # Try to install web drivers for one of these browsers
-        # Chrome, Firefox, Edge (One of them must be installed)
-        try:
-            driver = webdriver.Chrome(ChromeDriverManager().install())
-        except ValueError:
-            try:
-                driver = webdriver.Firefox(executable_path=
-                                           GeckoDriverManager().install())
-            except ValueError:
-                try:
-                    driver = webdriver.Edge(EdgeChromiumDriverManager().\
-                                            install())
-                except ValueError:
-                    print("You do not have one of these supported browsers:" +
-                          "Chrome, Firefox, Edge")
+        driver = get_browser_driver()
 
         # Open auth_url in one of the supported browsers
         driver.get(auth_url)
